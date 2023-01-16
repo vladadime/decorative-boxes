@@ -25,7 +25,7 @@ const ModalDialog = ({children, title, modalContent, buttonActionLabel, onBtnAct
           {modalContent}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="dark" onClick={onBtnAction}>
+          <Button variant="dark" onClick={() => {onBtnAction(); closeModal();}}>
             {buttonActionLabel}
           </Button>
           <Button variant="danger" onClick={closeModal}>

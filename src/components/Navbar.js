@@ -1,5 +1,4 @@
 import {navbarItems} from '../data/sample.js';
-// import { useState, useEffect } from 'react'
 
 const NavButton = ({title, path}) => {
     return(
@@ -9,25 +8,10 @@ const NavButton = ({title, path}) => {
     )
 }
 
-const Navbar = () => {
-    // const [navItems, setNavItems] = useState([]);
-    // useEffect(() => {
-    //     const getNavItems = async () => {
-    //       const navItemsFromServer = await fetchNavItems()
-    //       setNavItems(navItemsFromServer)
-    //     }
-    //     getNavItems()
-    //   }, [])
-    // const fetchNavItems = async () => {
-    //     const res = await fetch('http://localhost:5000/navbarItems')
-    //     const data = await res.json();
-
-    //     return data
-    //   }
-      
+const Navbar = () => {      
     return (
-        <div className="collapse navbar-collapse">
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+        <div className="collapse navbar-collapse col-md-4" id="navbarSupportedContent">
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0 float-end">
                 {navbarItems.map((item, index) => <NavButton key={index} title={item.title} path={item.path}/>)}
             </ul>
         </div>

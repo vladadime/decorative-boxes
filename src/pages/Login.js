@@ -1,38 +1,20 @@
-import {useStateContext} from '../contexts/ContextProvider';
 import { useNavigate } from "react-router-dom";
+import {useStateContext} from '../contexts/ContextProvider';
 
 const Login = () => {
-    const {isLoggedIn, setIsLoggedIn} = useStateContext();
+    const {login, logout} = useStateContext();
     const navigate = useNavigate();
-    
-    const login = () => {
-        var user = "kutijeLetus";
-        var username = prompt("Username: ");
-        if (username === user) { 
-            var pass = "kutije"
-            var password = prompt("Password: ");
-            if(password === pass) {
-                
-                setIsLoggedIn(true);
-                // alert("You logged in succesfully!");
-                navigate("/");
-            } else {
-                alert("Wrong password!");
-            }
-        } else {
-            alert("Wrong username!");
-        }
-    }
 
-    const logout = () => {
-        setIsLoggedIn(false);
-    }
+    const handleLogin = () => {
+        login();
+        
+        navigate("/");
+    };
 
     return (
         <div>
-            {console.log(isLoggedIn)}
-            { isLoggedIn ? logout() : login() }
-            {/* {login()} */}
+            <button className="btn btn-primary" onClick={handleLogin()}>Login</button>
+            <button className="btn btn-primary" onClick={logout}>Logout</button>
         </div>
     )
 }

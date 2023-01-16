@@ -35,9 +35,7 @@ const showNewForm = (row) => {
                 <label htmlFor="dimension" className="form-label">Dimenzija</label>
                 <input type="text" className="form-control" id="dimension" placeholder="NxM"/>
             </div>
-            {row
-                .prices
-                .map((price, index) => (
+            {row.prices.map((price, index) => (
                     <div className="mb-3" key={index}>
                         <label htmlFor={`${price.type}`} className="form-label">{types[price.type].label}</label>
                         <input

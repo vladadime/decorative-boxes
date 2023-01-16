@@ -2,30 +2,13 @@ import {Layout, CardBox} from '../components';
 import decoBoxes from '../data/deco-boxes.jpg';
 import {boxTypes} from '../data/sample.js';
 import {Link, useParams} from 'react-router-dom';
-// import { useState, useEffect } from "react"
-// import axios from "axios";
 
 const Products = ({parent}) => {
     const params = useParams();
 
-    // console.log(params);
-    // const [posts, setPosts] = useState([])
-    
-    // useEffect(()=> {
-    //     // axios.get(`http://localhost:3000/products/${params.id}`)
-    //     axios.get(`http://localhost:3000/products/${params.type}`)
-    //     .then(res => {
-    //         console.log(res)
-    //         setPosts(res.data)
-    //     })
-    //     .catch(err =>{
-    //         console.log(err)
-    //     })
-    // }, [params.id])
-
     return (
         <Layout>
-            <div className="row mt-5">
+            <div className="row ps-5 pe-3 my-5" style={{width: "99%"}}>
                 {
                     parent ? (
                     boxTypes.map((item) => (item.hasChilds) ? (

@@ -5,11 +5,12 @@ import {storage} from '.././firebase';
 import {ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
 import {v4} from 'uuid';
 import Carousel from 'react-bootstrap/Carousel';
+import { useStateContext } from '../contexts/ContextProvider';
 
 const Home = () => {
     const [imageUpload, setImageUpload] = useState(null);
     const [imageList, setImageList] = useState([]);
-
+    const {isLoggedIn, setIsLoggedIn} = useStateContext();
     // const imageListRef = ref(storage, `images/id_${params.id}`);
     const imageListRef = ref(storage, `images/home/`);
     const uploadImage = () => {
@@ -40,10 +41,10 @@ const Home = () => {
     }, []);
     return (
         <Layout>
-            <div className="d-flex justify-content-end" id="gallery-actions">
+            {isLoggedIn && <div className="d-flex justify-content-end" id="gallery-actions">
                 <input multiple type="file" onChange={(event) => {setImageUpload(event.target.files)}} />
                 <button type="button" className="btn btn-primary mx-1" onClick={uploadImage}>Dodaj Sliku</button>
-            </div>
+            </div>}
             <div className="container">
                 <div className="row justify-content-center mt-5">
                     <div className="col-lg-7">

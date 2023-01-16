@@ -5,4 +5,3 @@ export { default as Navbar } from './Navbar';
 export { default as CardBox } from './CardBox';
 export { default as Table } from './Table';
 export { default as ModalDialog } from './ModalDialog';
-// export { default as showNewForm, showEditForm } from './Forms';
