@@ -14,7 +14,7 @@ const Product = () => {
 
     const [imageUpload, setImageUpload] = useState(null);
     const [imageList, setImageList] = useState([]);
-    const {boxTypes2, setBoxTypes2, getCurrentProduct, isLoggedIn} = useStateContext();
+    const {boxTypes, setBoxTypes, getCurrentProduct, isLoggedIn} = useStateContext();
 
     // const imageListRef = ref(storage, `images/id_${params.id}`);
     const imageListRef = ref(storage, `images/`);
@@ -83,7 +83,7 @@ const Product = () => {
 
         var isExist = currProduct.info.find((item) => item.dimension === dimension);
         var prices = [];
-        for(var i = 1; i < inputs.length; i++) {
+        for(let i = 1; i < inputs.length; i++) {
             var obj = {
                 price: parseInt(inputs[i].value),
                 type: parseInt(inputs[i].id),
@@ -101,9 +101,7 @@ const Product = () => {
 
             currProduct.info.push(object);
             
-            boxTypes2[parseInt(params.id)].info = currProduct.info;
-
-            setBoxTypes2(boxTypes2);
+            boxTypes[parseInt(params.id)].info = currProduct.info;
 
             const res = await fetch("https://decorative-boxes-6255a-default-rtdb.firebaseio.com/data/-NLl9W4E3mD9xvDy3TR7.json", {
                 method: "PUT",
@@ -111,7 +109,9 @@ const Product = () => {
                     "Content-Type": "application/json",
                 },
 
-                body: JSON.stringify(boxTypes2)
+                body: JSON.stringify(boxTypes)
+            }).then(response => response.json()).then((data) => {
+                setBoxTypes(data);
             });
         }
     }
@@ -119,13 +119,18 @@ const Product = () => {
     const currProduct = getCurrentProduct(parseInt(params.id));
     return (
         <Layout>
-            {boxTypes2.length &&
+            {boxTypes.length &&
             <>
-                {isLoggedIn && <div className="d-flex justify-content-end" id="gallery-actions">
+                {/* {isLoggedIn && <div className="d-flex justify-content-end" id="gallery-actions">
                     <button type="button" className="btn btn-primary mx-1">Dodaj Sliku</button>
                     <ModalDialog modalContent={ <input multiple type="file" onChange={(event) => {setImageUpload(event.target.files)}} onClick={uploadImage} /> } title="Dodavanje slika" buttonActionLabel="Dodaj">Dodaj slike</ModalDialog>
                     <button type="button" className="btn btn-primary mx-1">Obriši Sliku</button>
-                </div>}
+                </div>} */}
+                <div className="d-flex justify-content-end" id="gallery-actions">
+                    <button type="button" className="btn btn-primary mx-1">Dodaj Sliku</button>
+                    <ModalDialog modalContent={ <input multiple type="file" onChange={(event) => {setImageUpload(event.target.files)}} onClick={uploadImage} /> } title="Dodavanje slika" buttonActionLabel="Dodaj">Dodaj slike</ModalDialog>
+                    <button type="button" className="btn btn-primary mx-1">Obriši Sliku</button>
+                </div>
                 <div className="row justify-content-center mt-5" style={{width: "99%"}}>
                     <div className="col-lg-7">
                         <Carousel className="shadow-lg" fade>
@@ -137,9 +142,9 @@ const Product = () => {
                         </Carousel>
                     </div>
                     <div id="info-container" className="d-flex justify-content-center mt-5 pt-5">
-                        <Table product={currProduct} params={params} />
+                        <Table product={boxTypes[params.id]} productId={params.id} />
                         {/* {isLoggedIn && <ModalDialog modalContent={ showNewForm(currProduct.info[0]) } title="Dodavanje cena" buttonActionLabel="Sačuvaj" onBtnAction={saveData}>Dodaj dimenziju</ModalDialog>} */}
-                        <ModalDialog modalContent={ showNewForm(currProduct.info ? currProduct.info[0] : currProduct.types) } title="Dodavanje cena" buttonActionLabel="Sačuvaj" onBtnAction={saveData}>Dodaj dimenziju</ModalDialog>
+                        <ModalDialog modalContent={ showNewForm(boxTypes[params.id].info ? boxTypes[params.id].info[0] : boxTypes[params.id].types) } title="Dodavanje cena" buttonActionLabel="Sačuvaj" onBtnAction={saveData}>Dodaj dimenziju</ModalDialog>
                     </div>
                 </div>
             </>

@@ -15,7 +15,7 @@ const App = () => {
                     <Route path="/products/:type" element={< Products parent={false} />}/>
                     <Route path="/gallery" element={< Gallery />}/>
                     <Route path="/product/:id" element={< Product />}/>
-                    <Route path="/admin" element={<Login />} />
+                    <Route path="/admin" element={<Login />}/>
                 </Routes>
             </BrowserRouter>
         </div>

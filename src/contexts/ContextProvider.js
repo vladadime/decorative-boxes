@@ -1,7 +1,4 @@
 import React, {createContext, useContext, useState, useEffect} from 'react';
-import { boxTypes } from "../data/sample.js";
-import { db } from ".././firebase.js";
-import { collection, doc, getDocs } from "firebase/firestore";
 
 const StateContext = createContext();
 
@@ -15,15 +12,13 @@ const initialState = {
 export const ContextProvider = ({children}) => {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [boxTypes2, setBoxTypes2] = useState([]);
+    const [boxTypes, setBoxTypes] = useState([]);
     const [loading, setLoading] = useState(false);
-    const dataCollectionRef = collection(db, "data");
-    // const navigate = useNavigate();
 
     useEffect(() => {
         const getDataFromServer = async () => {
             const dataFromServer = await getData();
-            setBoxTypes2(dataFromServer);
+            setBoxTypes(dataFromServer);
             setLoading(true);
         }
         getDataFromServer();
@@ -36,21 +31,31 @@ export const ContextProvider = ({children}) => {
         return data
     }
 
-    // useEffect(() => {
-    //     const getDataFromDB = async () => {
-    //         const data = await getDocs(dataCollectionRef);
-    //         setBoxTypes2(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
-    //         // setBoxTypes2(dataFromServer);
-    //         // setLoading(true);
-    //         console.log(data.docs[0].data());
-    //         console.log(boxTypes2);
-    //     }
-    //     getDataFromDB();
-    // }, []);
-
     const getCurrentProduct = (id) => {
-        return boxTypes2.find((item) => item.id === id);
+        return boxTypes.find((item) => item.id === id);
     }
+
+    const deleteDimension = async (currentDimension, id) => {
+        const currProduct = getCurrentProduct(id);
+    
+        const newProduct = currProduct.info.filter((item) => item.dimension !== currentDimension.dimension);
+    
+        boxTypes[id].info = newProduct;
+    
+        // setboxTypes(boxTypes);
+    
+        const res = await fetch("https://decorative-boxes-6255a-default-rtdb.firebaseio.com/data/-NLl9W4E3mD9xvDy3TR7.json", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+    
+            body: JSON.stringify(boxTypes)
+        }).then(response => response.json()).then((data) => {
+            setBoxTypes(data);
+        })
+        // then(data => this.setState({ postId: data.id }));
+      };
 
     const login = () => {
         console.log("Hello");
@@ -120,7 +125,7 @@ export const ContextProvider = ({children}) => {
     return (
         <StateContext.Provider
             value={{
-            isLoggedIn, setIsLoggedIn, boxTypes2, setBoxTypes2, loading, getCurrentProduct, login, logout
+            isLoggedIn, setIsLoggedIn, boxTypes, setBoxTypes, loading, getCurrentProduct, login, logout, deleteDimension
         }}>
             {children}
         </StateContext.Provider>
