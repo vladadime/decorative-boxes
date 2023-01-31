@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import { useStateContext } from '../contexts/ContextProvider';
 
 const ModalDialog = ({children, title, modalContent, buttonActionLabel, onBtnAction}) => {
+  const {resetFormValues} = useStateContext();
   const [isShow, invokeModal] = useState(false);
   const initModal = () => {
     return invokeModal(!false)
@@ -11,10 +13,7 @@ const ModalDialog = ({children, title, modalContent, buttonActionLabel, onBtnAct
   }
   return (
     <>
-      {/* <button className="border-0 bg-body text-primary py-0" onClick={initModal}>
-        {children}
-      </button> */}
-      <button className="border-0 bg-body text-primary py-0" onClick={initModal}>
+      <button className="border-0 bg-body text-primary py-0 fw-bold" onClick={initModal} >
         {children}
       </button>
       <Modal show={isShow}>
@@ -28,7 +27,7 @@ const ModalDialog = ({children, title, modalContent, buttonActionLabel, onBtnAct
           <Button variant="dark" onClick={() => {onBtnAction(); closeModal();}}>
             {buttonActionLabel}
           </Button>
-          <Button variant="danger" onClick={closeModal}>
+          <Button variant="danger" onClick={() => {resetFormValues(); closeModal();}}>
             Zatvori
           </Button>
         </Modal.Footer>
