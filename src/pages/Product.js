@@ -25,7 +25,7 @@ const Product = () => {
                 </div>
                 {row.prices.map((price, index) => (
                         <div className="mb-3" key={index}>
-                            <label htmlFor={`${price.type}`} className="form-label">{product.types[price.type].label}</label>
+                            <label htmlFor={`${price.type}`} className="form-label">{product.types[price.type]}</label>
                             <input
                                 type="text"
                                 className="form-control"
