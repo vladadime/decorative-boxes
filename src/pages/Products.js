@@ -1,15 +1,14 @@
-import {Layout, CardBox} from '../components';
-import { useStateContext } from '../contexts/ContextProvider';
-import decoBoxes from '../data/deco-boxes.jpg';
-// import {boxTypes} from '../data/sample.js';
 import {Link, useParams} from 'react-router-dom';
+import { useStateContext } from '../contexts/ContextProvider';
+import {Layout, CardBox} from '../components';
+import decoBoxes from '../data/deco-boxes.jpg';
 
 const Products = ({parent}) => {
     const params = useParams();
     const {boxTypes} = useStateContext();
     return (
         <Layout>
-            <div className="row ps-5 pe-3 my-5" style={{width: "99%"}}>
+            <div id="products-list" className="row ps-5 pe-3 my-5">
                 {
                     parent ? (
                     boxTypes.map((item) => (item.hasChilds) ? (
