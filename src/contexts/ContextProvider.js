@@ -110,9 +110,9 @@ export const ContextProvider = ({children}) => {
         for (let i = 0; i < imageUpload.length; i++) {
             var imageRef = "";
             if(productID) {
-                imageRef = ref(storage, `images/home/${imageUpload[i].name + v4()}`);
-            } else {
                 imageRef = ref(storage, `images/id_${productID}_${imageUpload[i].name + v4()}`);
+            } else {
+                imageRef = ref(storage, `images/home/${imageUpload[i].name + v4()}`);
             }
             uploadBytes(imageRef, imageUpload[i]).then((snapshot) => {
                 getDownloadURL(snapshot.ref).then((url) => {
@@ -122,8 +122,8 @@ export const ContextProvider = ({children}) => {
                     ]);
                 });
             });
-            alert("Images uploaded");
         }
+        // alert("Images uploaded");
     };
 
     const getImages = (imgRef, productID) => {
