@@ -128,6 +128,7 @@ export const ContextProvider = ({children}) => {
 
     const getImages = (imgRef, productID) => {
         const imageListRef = ref(storage, imgRef);
+        setImageList([]);
         listAll(imageListRef).then((response) => {
             response.items.forEach((item) => {
                 if(productID) {
