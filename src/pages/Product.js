@@ -49,7 +49,7 @@ const Product = () => {
                 </div>}
                 <div id="product-carousel" className="row justify-content-center mt-5 mx-1">
                     <div className="col-lg-7">
-                        {imageList ? 
+                        {imageList.length ? 
                         <Carousel className="shadow-lg" fade>
                             {imageList.map((item, index) => (
                                 <Carousel.Item key={index}>
