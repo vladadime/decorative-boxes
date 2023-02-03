@@ -15,19 +15,19 @@ const PricelistTable = ({productId}) => {
                         type="text"
                         className="form-control"
                         id="dimension"
-                        defaultValue={`${row.dimension}`}
+                        defaultValue={row.dimension}
                         disabled/>
                 </div>
                 {row
                     .prices
                     .map((price, index) => (
                         <div className="mb-3" key={index}>
-                            <label htmlFor={`${price.type}`} className="form-label">{types[price.type].label}</label>
+                            <label htmlFor={price.type} className="form-label">{types[price.type].label}</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                id={`${price.type}`}
-                                defaultValue={`${price.price} RSD`}
+                                id={price.type}
+                                defaultValue={price.price}
                                 onChange={(e) => handleFormChange(e.target)}/>
                         </div>
                     ))}
@@ -69,12 +69,12 @@ const PricelistTable = ({productId}) => {
                                     modalContent={showEditForm(item)}
                                     title="Izmena cena"
                                     buttonActionLabel="Sačuvaj"
-                                    onBtnAction={onClick => editDimension(productId, item.dimension, item.prices)}><BsPencilSquare className="text-primary"/></ModalDialog>
+                                    onBtnAction={(e) => editDimension(productId, item.dimension, item.prices)}><BsPencilSquare className="text-primary"/></ModalDialog>
                                 <ModalDialog
                                     modalContent={"Da li želite da izbrišete dimenziju?"}
                                     title="Brisanje dimenzije"
                                     buttonActionLabel="Izbriši"
-                                    onBtnAction={onClick => deleteDimension(item, productId)}><BsTrashFill className="text-primary"/></ModalDialog>
+                                    onBtnAction={(e) => deleteDimension(item, productId)}><BsTrashFill className="text-primary"/></ModalDialog>
                             </td>}
                         </tr>
                     ))
