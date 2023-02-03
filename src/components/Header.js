@@ -6,7 +6,7 @@ import logo from '../data/logo.png';
 const Header = () => {
     return (
         <div className="navbar navbar-expand-md navbar-dark">
-            <div id="navbar-items" className="col-2 col-md-4">
+            <div id="navbar-items" className="col-3 col-sm-2 col-md-4">
                 <button
                     className="navbar-toggler bg-dark"
                     type="button"
@@ -22,7 +22,7 @@ const Header = () => {
             <a className="navbar-brand col-4 text-center" href="#">
                 <img id="app-logo" src={logo} alt="Website Logo"/>
             </a>
-            <div id="contac-info" className="col-6 col-md-4">
+            <div id="contac-info" className="col-5 col-md-4">
                 <div className="float-end mx-4">
                     <SocialIcon
                         target="_blank"
