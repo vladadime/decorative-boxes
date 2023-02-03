@@ -28,8 +28,11 @@ export const ContextProvider = ({children}) => {
     const dataUrl = "https://decorative-boxes-6255a-default-rtdb.firebaseio.com/data/-NLl9W4E3mD9xvDy" +
             "3TR7.json";
     const appUrl = "http://localhost:3000/";
-    // const isLoggedIn = sessionStorage.getItem("isLoggedIn") === ("true" || true) ? true : false;
-    const isLoggedIn = localStorage.getItem("isLoggedIn") === ("true" || true) ? true : false;
+    // const appUrl = "https://kutijeicveceletus.netlify.app/"; const isLoggedIn =
+    // sessionStorage.getItem("isLoggedIn") === ("true" || true) ? true : false;
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === ("true" || true)
+        ? true
+        : false;
 
     const handleFormChange = (e) => {
         if (e.id === "dimension") {
@@ -91,8 +94,7 @@ export const ContextProvider = ({children}) => {
 
     const logout = () => {
         signOut(auth).then(() => {
-            // Sign-out successful. 
-            // sessionStorage.setItem('isLoggedIn', false);
+            // Sign-out successful. sessionStorage.setItem('isLoggedIn', false);
             localStorage.setItem('isLoggedIn', false);
             window
                 .location
@@ -109,7 +111,7 @@ export const ContextProvider = ({children}) => {
         }
         for (let i = 0; i < imageUpload.length; i++) {
             var imageRef = "";
-            if(productID) {
+            if (productID) {
                 imageRef = ref(storage, `images/id_${productID}_${imageUpload[i].name + v4()}`);
             } else {
                 imageRef = ref(storage, `images/home/${imageUpload[i].name + v4()}`);
@@ -130,23 +132,29 @@ export const ContextProvider = ({children}) => {
         const imageListRef = ref(storage, imgRef);
         setImageList([]);
         listAll(imageListRef).then((response) => {
-            response.items.forEach((item) => {
-                if(productID) {
-                    var name = item.name;
-                    var index = parseInt(name.substring(name.indexOf("id_") + 3, name.indexOf("_IMG_")));
-                }
-                getDownloadURL(item).then((url) => {
-                    if(productID) {
-                        if (index === parseInt(productID)) 
-                        setImageList((prev) => [
-                            ...prev,
-                            url
-                        ]);
-                    } else {
-                        setImageList((prev) => [...prev, url]);
+            response
+                .items
+                .forEach((item) => {
+                    if (productID) {
+                        var name = item.name;
+                        var index = parseInt(name.substring(name.indexOf("id_") + 3, name.indexOf("_IMG_")));
                     }
+                    getDownloadURL(item).then((url) => {
+                        if (productID) {
+                            if (index === parseInt(productID)) 
+                                setImageList((prev) => [
+                                    ...prev,
+                                    url
+                                ]);
+                            }
+                        else {
+                            setImageList((prev) => [
+                                ...prev,
+                                url
+                            ]);
+                        }
+                    });
                 });
-            });
         });
     };
 
@@ -231,11 +239,17 @@ export const ContextProvider = ({children}) => {
 
     const addDimension = async(productID) => {
         const currentProduct = boxTypes[productID]
-        const isExist = currentProduct
-            .info
-            .find((item) => item.dimension === dimension);
+        var isExist = true;
+        if (currentProduct.info) {
+            isExist = currentProduct
+                .info
+                .find((item) => item.dimension === dimension);
+        } else {
+            isExist = false;
+            boxTypes[productID].info = [];
+        }
 
-        if (isExist === undefined) {
+        if (!isExist) {
             const object = {
                 dimension: dimension,
                 prices: prices
@@ -284,7 +298,8 @@ export const ContextProvider = ({children}) => {
             prices,
             handleFormChange,
             resetFormValues,
-            getImages
+            getImages,
+            appUrl
         }}>
             {children}
         </StateContext.Provider>
