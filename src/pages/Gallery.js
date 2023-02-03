@@ -15,7 +15,7 @@ const Gallery = () => {
         <Layout>
             <div className="container py-5">
                 <div className="portfolio-item row">
-                    {imageList
+                    {imageList.length
                         ? imageList.map((url, index) => (
                             <div key={index} className="item selfie col-lg-3 col-md-4 col-6 py-2">
                                 <a href={url} className="fancylight popup-btn" data-fancybox-group="light">

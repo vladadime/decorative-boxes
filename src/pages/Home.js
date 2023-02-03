@@ -27,7 +27,7 @@ const Home = () => {
             <div className="container">
                 <div className="row justify-content-center mt-5">
                     <div className="col-lg-7">
-                        {imageList
+                        {imageList.length
                             ? <Carousel className="shadow-lg" fade>
                                     {imageList.map((item, index) => (
                                         <Carousel.Item key={index} interval={2000}>
