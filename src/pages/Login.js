@@ -6,8 +6,8 @@ const Login = () => {
     return (
         <div
             className="w-100 vh-100 d-flex justify-content-center align-content-center flex-wrap p-4 pb-4">
-            <div className="w-25 d-flex justify-content-center border border-2">
-                <div className="w-75 p-4 pb-4">
+            <div className="w-md-25 d-flex justify-content-center border border-2">
+                <div className="w-100 p-4 pb-4">
                     <form>
                         {/* Email input */}
                         <div className="form-outline mb-4">
