@@ -33,9 +33,9 @@ const App = () => {
                 : <BrowserRouter>
                     <Routes>
                         <Route path="/" element={
-                            <div id="site-cannot-display" className="w-100 h-100 d-flex justify-content-center align-items-center bg-dark">
-                                <div className="w-25 h-75 d-flex justify-content-center align-items-center">
-                                    <img className="h-100" src={siteCurrDown} alt="Site currently not available" />
+                            <div id="site-cannot-display" className="h-100 d-md-flex justify-content-center align-items-center bg-dark">
+                                <div className="w-25 h-75 d-md-flex justify-content-center align-items-center">
+                                    <img className="h-md-100" src={siteCurrDown} alt="Site currently not available" />
                                 </div>
                             </div>
                         }/>
