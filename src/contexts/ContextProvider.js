@@ -25,10 +25,9 @@ export const ContextProvider = ({children}) => {
         setDimension] = useState("");
     const [prices,
         setPrices] = useState([]);
-    const dataUrl = "https://decorative-boxes-6255a-default-rtdb.firebaseio.com/data/-NLl9W4E3mD9xvDy" +
-            "3TR7.json";
+    const dataUrl = "https://decorative-boxes-6255a-default-rtdb.firebaseio.com/data/-NLl9W4E3mD9xvDy3TR7.json";
     // const appUrl = "http://localhost:3000/";
-    const appUrl = "https://kutijeletus.netlify.app/"; 
+    const appUrl = "https://kutijeletus.com/"; 
     // const isLoggedIn = sessionStorage.getItem("isLoggedIn") === ("true" || true) ? true : false;
     const isLoggedIn = localStorage.getItem("isLoggedIn") === ("true" || true)
         ? true
